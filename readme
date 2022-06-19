@@ -13,3 +13,8 @@ A fork of github.com/russross/blackfriday/v2 with a few changes. Notably:
 INSTALL
 
     go get git.icyphox.sh/grayfriday
+
+
+LICENSE
+
+Maintains the same license as blackfriday -- Simplified BSD.
