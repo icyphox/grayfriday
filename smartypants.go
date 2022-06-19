@@ -202,7 +202,7 @@ func (r *SPRenderer) smartEmDash(out *bytes.Buffer, previousChar byte, text []by
 
 func (r *SPRenderer) smartEnDash(out *bytes.Buffer, previousChar byte, text []byte) int {
 	if len(text) >= 2 {
-		if wordBoundary(previousChar) && wordBoundary(text[1]) {
+		if isdigit(previousChar) && isdigit(text[1]) {
 			out.WriteString("&ndash;")
 			return 0
 		}
