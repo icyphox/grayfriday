@@ -188,19 +188,25 @@ func (r *SPRenderer) smartParens(out *bytes.Buffer, previousChar byte, text []by
 	return 0
 }
 
-func (r *SPRenderer) smartDash(out *bytes.Buffer, previousChar byte, text []byte) int {
-	if len(text) >= 2 {
-		if text[1] == '-' {
+func (r *SPRenderer) smartEmDash(out *bytes.Buffer, previousChar byte, text []byte) int {
+	if len(text) >= 3 {
+		if text[1] == '-' && text[2] == '-' && isspace(text[3]) {
 			out.WriteString("&mdash;")
-			return 1
+			return 3
 		}
+	}
 
+	out.WriteByte(text[0])
+	return 0
+}
+
+func (r *SPRenderer) smartEnDash(out *bytes.Buffer, previousChar byte, text []byte) int {
+	if len(text) >= 2 {
 		if wordBoundary(previousChar) && wordBoundary(text[1]) {
 			out.WriteString("&ndash;")
 			return 0
 		}
 	}
-
 	out.WriteByte(text[0])
 	return 0
 }
@@ -414,7 +420,8 @@ func NewSmartypantsRenderer(flags HTMLFlags) *SPRenderer {
 	r.callbacks['('] = r.smartParens
 	if flags&SmartypantsDashes != 0 {
 		if flags&SmartypantsLatexDashes == 0 {
-			r.callbacks['-'] = r.smartDash
+			r.callbacks[' '] = r.smartEmDash
+			r.callbacks['-'] = r.smartEnDash
 		} else {
 			r.callbacks['-'] = r.smartDashLatex
 		}
