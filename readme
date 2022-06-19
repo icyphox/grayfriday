@@ -1,0 +1,15 @@
+grayfriday
+----------
+
+A fork of github.com/russross/blackfriday/v2 with a few changes. Notably:
+
+    • Em-dashes swallow spaces. For example: "Foo -- bar" becomes "Foo&mdash;bar"
+      This is more typographically accurate, while allowing for cleaner looking plaintext.
+    • En-dashes only between numbers. For example: "8-9 years" becomes "8ndash;9 years".
+      Again, this keeps the plaintext more natural (as opposed to writing "8 - 9" years 
+      in blackfriday for an en-dash).
+
+
+INSTALL
+
+    go get git.icyphox.sh/grayfriday
