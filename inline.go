@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"regexp"
 	"strconv"
+	"strings"
 )
 
 var (
@@ -265,6 +266,7 @@ func link(p *Markdown, data []byte, offset int) (int, *Node) {
 		i                       = 1
 		noteID                  int
 		title, link, altContent []byte
+		widthHeight             []byte
 		textHasNl               = false
 	)
 
@@ -399,6 +401,32 @@ func link(p *Markdown, data []byte, offset int) (int, *Node) {
 
 		i++
 
+		var whE, whB int
+		if i < len(data) && data[i] == '{' {
+			i++
+			whB = i
+
+		findwidthheight:
+			for i < len(data) {
+				switch {
+				case data[i] == '}':
+					break findwidthheight
+				default:
+					i++
+				}
+			}
+
+			if i >= len(data) {
+				return 0, nil
+			}
+
+			whE = i
+
+			if whE > whB {
+				widthHeight = data[whB:whE]
+			}
+			i++
+		}
 	// reference style link
 	case isReferenceStyleLink(data, i, t):
 		var id []byte
@@ -565,6 +593,12 @@ func link(p *Markdown, data []byte, offset int) (int, *Node) {
 
 	case linkImg:
 		linkNode = NewNode(Image)
+		if len(widthHeight) > 0 {
+			wh := strings.Split(string(widthHeight), "x")
+			w, _ := strconv.Atoi(wh[0])
+			h, _ := strconv.Atoi(wh[1])
+			linkNode.Width, linkNode.Height = w, h
+		}
 		linkNode.Destination = uLink
 		linkNode.Title = title
 		linkNode.AppendChild(text(data[1:txtE]))

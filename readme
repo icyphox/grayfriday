@@ -8,6 +8,10 @@ A fork of github.com/russross/blackfriday/v2 with a few changes. Notably:
     • En-dashes only between numbers. For example: "8-9 years" becomes "8ndash;9 years".
       Again, this keeps the plaintext more natural (as opposed to writing "8 - 9" years 
       in blackfriday for an en-dash).
+    • Optional image width/height. For example:
+        ![foo image](http://example.com/bar.png){400x800}
+      This renders as:
+        <p><img src="http://example.com/bar.png" alt="foo image" width="400" height="800" /></p>
 
 
 INSTALL

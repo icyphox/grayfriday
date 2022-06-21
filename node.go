@@ -84,6 +84,8 @@ type LinkData struct {
 	Destination []byte // Destination is what goes into a href
 	Title       []byte // Title is the tooltip thing that goes in a title attribute
 	NoteID      int    // NoteID contains a serial number of a footnote, zero if it's not a footnote
+	Width       int    // Width attribute for an img
+	Height      int    // Height attribute for an img
 	Footnote    *Node  // If it's a footnote, this is a direct link to the footnote Node. Otherwise nil.
 }
 

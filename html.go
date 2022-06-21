@@ -614,6 +614,10 @@ func (r *HTMLRenderer) RenderNode(w io.Writer, node *Node, entering bool) WalkSt
 					r.out(w, []byte(`" title="`))
 					escapeHTML(w, node.LinkData.Title)
 				}
+				if node.LinkData.Width != 0 {
+					r.out(w, []byte(fmt.Sprintf(`" width="%d" height="%d`,
+						node.LinkData.Width, node.LinkData.Height)))
+				}
 				r.out(w, []byte(`" />`))
 			}
 		}
