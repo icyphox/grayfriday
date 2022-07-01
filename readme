@@ -11,7 +11,7 @@ A fork of github.com/russross/blackfriday/v2 with a few changes. Notably:
     • Optional image width/height. For example:
         ![foo image](http://example.com/bar.png){400x800}
       This renders as:
-        <p><img src="http://example.com/bar.png" alt="foo image" width="400" height="800" /></p>
+        <p><img src="http://example.com/bar.png" alt="foo style="width:400 height:800" /></p>
 
 
 INSTALL
