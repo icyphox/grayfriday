@@ -616,12 +616,12 @@ func (r *HTMLRenderer) RenderNode(w io.Writer, node *Node, entering bool) WalkSt
 				}
 				switch {
 				case node.LinkData.Width != 0 && node.LinkData.Height != 0:
-					r.out(w, []byte(fmt.Sprintf(`" style="width:%dpx height:%dpx`,
+					r.out(w, []byte(fmt.Sprintf(`" style="width:%dpx; height:%dpx;`,
 						node.LinkData.Width, node.LinkData.Height)))
 				case node.LinkData.Width != 0:
-					r.out(w, []byte(fmt.Sprintf(`" style="width:%dpx`, node.LinkData.Width)))
+					r.out(w, []byte(fmt.Sprintf(`" style="width:%dpx;`, node.LinkData.Width)))
 				case node.LinkData.Height != 0:
-					r.out(w, []byte(fmt.Sprintf(`" style="height:%dpx`, node.LinkData.Height)))
+					r.out(w, []byte(fmt.Sprintf(`" style="height:%dpx;`, node.LinkData.Height)))
 				}
 				r.out(w, []byte(`" />`))
 			}
