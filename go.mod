@@ -1,3 +1,3 @@
-module git.icyphox.sh/grayfriday
+module icyphox.sh/grayfriday
 
 go 1.19
